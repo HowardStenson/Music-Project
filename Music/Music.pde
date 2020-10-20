@@ -46,7 +46,6 @@ println("Press S to Stop and Rewind");
 println("Press L to loop");
 println("Press F to fast Forward");
 println("Press R to Skip BackWards");
-//verifying Meta Data
 println("\n\nVerifying MetaData") ;
 println( "File Name:", songMetaData[currentSong].fileName() );
 println( "Song Length (in milliseconds):", songMetaData[currentSong].length() );
@@ -77,13 +76,13 @@ stopButtonY = height*1/2;
 stopButtonWidth = width*1/10 ;
 stopButtonHeight = height*1/10 ;
 rewindButtonX = width*1/4 ;
-rewindButtonY = height*1/2 ;
+rewindButtonY = height*4/8 ;
 rewindButtonWidth = width*1/10 ;
-rewindButtonHeight = height*1/10 ; 
+rewindButtonHeight = height*2/10 ; 
 forwardButtonX = width*3/4;
-forwardButtonY = height*1/2 ;
-forwardButtonWidth = width*9/10 ;
-forwardButtonHeight = height*9/10 ;
+forwardButtonY = height*4/8 ;
+forwardButtonWidth = width*2/10 ;
+forwardButtonHeight = height*2/10 ;
 //GUI end
 }
   
