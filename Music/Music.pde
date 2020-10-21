@@ -6,20 +6,24 @@ import ddf.minim.spi.*;
 import ddf.minim.ugens.*;
 
 //Global Variable
-Minim minim;
+  Minim minim;
 int numberofSongs = 5 ;
   AudioPlayer[] song = new AudioPlayer[numberofSongs];
-  color white = #FFFFFF ;
+color white = #FFFFFF ;
+color black = #030303;
   AudioMetaData[] songMetaData = new AudioMetaData[numberofSongs];
-  int currentSong=  1 ;
-  int loopNum = 1 ;
+int currentSong=  1 ;
+int loopNum = 1 ;
   //GUI
-  int playButtonX, playButtonY, playButtonWidth, playButtonHeight ;
-  int stopButtonX, stopButtonY, stopButtonWidth, stopButtonHeight ;
-  int rewindButtonX, rewindButtonY, rewindButtonWidth, rewindButtonHeight ;
-  int forwardButtonX, forwardButtonY, forwardButtonWidth, forwardButtonHeight ;
-  //GUI End
-void setup() {
+float playButtonX, playButtonY, playButtonWidth, playButtonHeight ;
+int stopButtonX, stopButtonY, stopButtonWidth, stopButtonHeight ;
+int rewindButtonX, rewindButtonY, rewindButtonWidth, rewindButtonHeight ;
+int forwardButtonX, forwardButtonY, forwardButtonWidth, forwardButtonHeight ;
+int LoopButtonX, LoopButtonY, LoopButtonWidth, LoopButtonHeight ;
+color buttonColour ;
+ //GUI End
+  
+  void setup() {
   size(500, 600) ;
   minim = new Minim(this);
   song[0] = minim.loadFile("Robots_a_Cometh.mp3") ;
@@ -27,7 +31,6 @@ void setup() {
   song[2] = minim.loadFile("Spring Thaw - Asher Fulero.mp3") ;
   song[3] = minim.loadFile("Cover - Patrick Patrikios.mp3") ;
   song[4] = minim.loadFile("Cold Water - Patrick Patrikios.mp3") ;
-  //
   /*
   songMetaData[0] = song[0].getMetaData();
   songMetaData[1] = song[1].getMetaData();
@@ -36,9 +39,8 @@ void setup() {
   songMetaData[4] = song[4].getMetaData();
   */
   for (int i=0; i<song.length ;i++) {
-    songMetaData[i] = song[i].getMetaData();
-}// End Song MetaData
-//
+  songMetaData[i] = song[i].getMetaData();
+}
 println("Start of Console");
 println("Click the Canvas to Finish Starting this App");
 println("Press P to play and pause");
@@ -65,73 +67,78 @@ println("Lyrics : ", songMetaData[currentSong].lyrics() );
 println("Track : ", songMetaData[currentSong].track() );
 println("Genre : ", songMetaData[currentSong].genre() );
 println("Encoded : ", songMetaData[currentSong].encoded() );
-//println(" : ", songMetaData[currentSong]. );
-//GUI 
-playButtonX = width*1/2;
+  //GUI 
+playButtonX = width*1/3;
 playButtonY = height*1/2;
-playButtonWidth = width*1/5 ;
-playButtonHeight = height*1/5 ;
+playButtonWidth = width*2/5;
+playButtonHeight = height*1/5;
 stopButtonX = width*1/4;
 stopButtonY = height*1/2;
 stopButtonWidth = width*1/10 ;
 stopButtonHeight = height*1/10 ;
-rewindButtonX = width*1/4 ;
-rewindButtonY = height*4/8 ;
-rewindButtonWidth = width*1/10 ;
-rewindButtonHeight = height*2/10 ; 
+rewindButtonX = width*1/20;
+rewindButtonY = height*4/8;
+rewindButtonWidth = width*2/10;
+rewindButtonHeight = height*2/10; 
 forwardButtonX = width*3/4;
-forwardButtonY = height*4/8 ;
-forwardButtonWidth = width*2/10 ;
-forwardButtonHeight = height*2/10 ;
-//GUI end
+forwardButtonY = height*4/8;
+forwardButtonWidth = width*2/10;
+forwardButtonHeight = height*2/10;
+LoopButtonX = width*19/20;
+LoopButtonY = height*0; 
+LoopButtonWidth = width*1/20 ;
+LoopButtonHeight = height*1/20; 
+  //GUI end
 }
   
-void draw() {
- background(white);
- rect(playButtonX, playButtonY, playButtonWidth, playButtonHeight);
- //rect(stopButtonX, stopButtonY, stopButtonWidth, stopButtonHeight);
- rect(forwardButtonX, forwardButtonY, forwardButtonWidth, forwardButtonHeight);
- rect(rewindButtonX, rewindButtonY, rewindButtonWidth, rewindButtonHeight);        
-} 
+  void draw() {
+    background(white);
+  rect(playButtonX, playButtonY, playButtonWidth, playButtonHeight);
+  rect(forwardButtonX, forwardButtonY, forwardButtonWidth, forwardButtonHeight);
+  rect(rewindButtonX, rewindButtonY, rewindButtonWidth, rewindButtonHeight); 
+  rect(LoopButtonX, LoopButtonY, LoopButtonWidth, LoopButtonHeight);
+  } 
 
-void keyPressed() {
+  void keyPressed() {
   if (key == 'p' || key == 'P') {
-   if ( song[currentSong].isPlaying() ) {
-        song[currentSong].pause() ;
-   } else if ( song[currentSong].position() == song[currentSong].length()) {
+  if ( song[currentSong].isPlaying() ) {
+      song[currentSong].pause() ;
+} else if (song[currentSong].position() == song[currentSong].length()) {
       song[currentSong].rewind() ;
       song[currentSong].play() ;
-   } else {
-          song[0].play();}
-  }
+} else {
+      song[currentSong].play();}
+   }
 if (key == 's' || key == 'S') {
 if ( song[currentSong].isPlaying() ) {
      song[currentSong].rewind() ;
      song[currentSong].pause() ;
          } else {
      song[currentSong].rewind() ;
- }
+  }
 }
 if( key == 'l' || key == 'L' ) song[currentSong].loop(loopNum);
 if( key == 'f' || key == 'F' ) song[currentSong].skip(5000);
 if( key == 'r' || key == 'R' ) song[currentSong].skip(-5000); 
 }
 
-void mousePressed() {  
+void mousePressed() { 
   if (mouseX>playButtonX && mouseX<playButtonX+playButtonWidth && mouseY>playButtonY && mouseY<playButtonY+playButtonHeight) {
   if ( song[currentSong].isPlaying() ) {
         song[currentSong].pause() ;
-   } else if ( song[currentSong].position() == song[currentSong].length()) {
+} else if ( song[currentSong].position() == song[currentSong].length()) {
       song[currentSong].rewind() ;
       song[currentSong].play() ;
-   } else {
+} else {
      song[currentSong].play();}
   }
-  if (mouseX>rewindButtonX && mouseX<rewindButtonX+rewindButtonWidth && mouseY>rewindButtonY && mouseY<rewindButtonY+rewindButtonHeight) {
+ if (mouseX>rewindButtonX && mouseX<rewindButtonX+rewindButtonWidth && mouseY>rewindButtonY && mouseY<rewindButtonY+rewindButtonHeight) {
   song[currentSong].skip(-5000);
   }
-  if (mouseX>forwardButtonX && mouseX<forwardButtonX+forwardButtonWidth && mouseY>forwardButtonY && mouseY<forwardButtonY+forwardButtonHeight) {
+ if (mouseX>forwardButtonX && mouseX<forwardButtonX+forwardButtonWidth && mouseY>forwardButtonY && mouseY<forwardButtonY+forwardButtonHeight) {
   song[currentSong].skip(5000);
   }
-  //playButtonX, playButtonY, playButtonWidth, playButtonHeight
+  if (mouseX>LoopButtonX && mouseX<LoopButtonX+LoopButtonWidth && mouseY>LoopButtonY && mouseY<LoopButtonY+LoopButtonHeight) {
+   song[currentSong].loop(loopNum);
+  }
 }
