@@ -7,21 +7,20 @@ import ddf.minim.ugens.*;
 
 //Global Variable
   Minim minim;
-int numberofSongs = 5 ;
+ int numberofSongs = 5 ;
   AudioPlayer[] song = new AudioPlayer[numberofSongs];
 color white = #FFFFFF ;
 color black = #030303;
+color blue = #FFF985 ;
   AudioMetaData[] songMetaData = new AudioMetaData[numberofSongs];
-int currentSong=  1 ;
-int loopNum = 1 ;
-  //GUI
-float playButtonX, playButtonY, playButtonWidth, playButtonHeight ;
-int stopButtonX, stopButtonY, stopButtonWidth, stopButtonHeight ;
-int rewindButtonX, rewindButtonY, rewindButtonWidth, rewindButtonHeight ;
-int forwardButtonX, forwardButtonY, forwardButtonWidth, forwardButtonHeight ;
-int LoopButtonX, LoopButtonY, LoopButtonWidth, LoopButtonHeight ;
+ int currentSong=  0 ;
+ int loopNum = 1 ;
+ float playButtonX, playButtonY, playButtonWidth, playButtonHeight ;
+ int stopButtonX, stopButtonY, stopButtonWidth, stopButtonHeight ;
+ int rewindButtonX, rewindButtonY, rewindButtonWidth, rewindButtonHeight ;
+ int forwardButtonX, forwardButtonY, forwardButtonWidth, forwardButtonHeight ;
+ int LoopButtonX, LoopButtonY, LoopButtonWidth, LoopButtonHeight ;
 color buttonColour ;
- //GUI End
   
   void setup() {
   size(500, 600) ;
@@ -39,7 +38,7 @@ color buttonColour ;
   songMetaData[4] = song[4].getMetaData();
   */
   for (int i=0; i<song.length ;i++) {
-  songMetaData[i] = song[i].getMetaData();
+ songMetaData[i] = song[i].getMetaData();
 }
 println("Start of Console");
 println("Click the Canvas to Finish Starting this App");
@@ -67,10 +66,9 @@ println("Lyrics : ", songMetaData[currentSong].lyrics() );
 println("Track : ", songMetaData[currentSong].track() );
 println("Genre : ", songMetaData[currentSong].genre() );
 println("Encoded : ", songMetaData[currentSong].encoded() );
-  //GUI 
 playButtonX = width*1/3;
 playButtonY = height*1/2;
-playButtonWidth = width*2/5;
+playButtonWidth = width*166.6/500;
 playButtonHeight = height*1/5;
 stopButtonX = width*1/4;
 stopButtonY = height*1/2;
@@ -87,35 +85,58 @@ forwardButtonHeight = height*2/10;
 LoopButtonX = width*19/20;
 LoopButtonY = height*0; 
 LoopButtonWidth = width*1/20 ;
-LoopButtonHeight = height*1/20; 
-  //GUI end
-}
-  
+LoopButtonHeight = height*1/20;  
+} 
+
   void draw() {
-    background(white);
-  rect(playButtonX, playButtonY, playButtonWidth, playButtonHeight);
-  rect(forwardButtonX, forwardButtonY, forwardButtonWidth, forwardButtonHeight);
-  rect(rewindButtonX, rewindButtonY, rewindButtonWidth, rewindButtonHeight); 
-  rect(LoopButtonX, LoopButtonY, LoopButtonWidth, LoopButtonHeight);
-  } 
+  background(white);
+  rect(playButtonX, playButtonY, playButtonWidth, playButtonHeight); {
+  if (mouseX>playButtonX && mouseX<playButtonWidth && mouseY>playButtonY && mouseY<playButtonHeight) { //Button Hoverover
+  buttonColour = blue; //Hoverover
+  } else {
+  buttonColour = black;
+  }
+ }
+  rect(forwardButtonX, forwardButtonY, forwardButtonWidth, forwardButtonHeight);{
+  if (mouseX>forwardButtonX && mouseX<forwardButtonWidth && mouseY>forwardButtonY && mouseY<forwardButtonHeight) { //Button Hoverover
+  buttonColour = blue; //Hoverover
+  } else {
+  buttonColour = black;
+  }
+ }
+  rect(rewindButtonX, rewindButtonY, rewindButtonWidth, rewindButtonHeight); {
+  if (mouseX>rewindButtonX && mouseX<rewindButtonWidth && mouseY>rewindButtonY && mouseY<rewindButtonHeight) { //Button Hoverover
+  buttonColour = blue; //Hoverover
+  } else {
+  buttonColour = black;
+  }
+ }
+  rect(LoopButtonX, LoopButtonY, LoopButtonWidth, LoopButtonHeight) ; {
+  if (mouseX>LoopButtonX && mouseX<LoopButtonWidth && mouseY>LoopButtonY && mouseY<LoopButtonHeight) { //Button Hoverover
+  buttonColour = blue; //Hoverover
+  } else {
+  buttonColour = black;
+  }
+ }
+}
 
   void keyPressed() {
-  if (key == 'p' || key == 'P') {
-  if ( song[currentSong].isPlaying() ) {
+ if (key == 'p' || key == 'P') {
+ if (song[currentSong].isPlaying() ) {
       song[currentSong].pause() ;
-} else if (song[currentSong].position() == song[currentSong].length()) {
+ } else if (song[currentSong].position() == song[currentSong].length()) {
       song[currentSong].rewind() ;
       song[currentSong].play() ;
-} else {
+ } else {
       song[currentSong].play();}
-   }
-if (key == 's' || key == 'S') {
-if ( song[currentSong].isPlaying() ) {
+ }
+ if (key == 's' || key == 'S') {
+ if (song[currentSong].isPlaying() ) {
      song[currentSong].rewind() ;
      song[currentSong].pause() ;
          } else {
      song[currentSong].rewind() ;
-  }
+ }
 }
 if( key == 'l' || key == 'L' ) song[currentSong].loop(loopNum);
 if( key == 'f' || key == 'F' ) song[currentSong].skip(5000);
