@@ -9,10 +9,12 @@ import ddf.minim.ugens.*;
   Minim minim;
  int numberofSongs = 5 ;
   AudioPlayer[] song = new AudioPlayer[numberofSongs];
+
 color white = #FFFFFF ;
 color black = #030303;
 color blue = #FFF985 ;
   AudioMetaData[] songMetaData = new AudioMetaData[numberofSongs];
+  //
  int currentSong=  0 ;
  int loopNum = 1 ;
  float playButtonX, playButtonY, playButtonWidth, playButtonHeight ;
@@ -21,6 +23,7 @@ color blue = #FFF985 ;
  int forwardButtonX, forwardButtonY, forwardButtonWidth, forwardButtonHeight ;
  int LoopButtonX, LoopButtonY, LoopButtonWidth, LoopButtonHeight ;
 color buttonColour ;
+ //
   
   void setup() {
   size(500, 600) ;
@@ -141,10 +144,62 @@ LoopButtonHeight = height*1/20;
 if( key == 'l' || key == 'L' ) song[currentSong].loop(loopNum);
 if( key == 'f' || key == 'F' ) song[currentSong].skip(5000);
 if( key == 'r' || key == 'R' ) song[currentSong].skip(-5000); 
-}
+//
+println ("Current Song before the next or back button, ", "Number: "+currentSong); 
+  if (key == 'n' || key == 'N') { 
+    if (song[currentSong].isPlaying()) {
+      song[currentSong].pause();
+      song[currentSong].rewind();
+      if ( currentSong == numberofSongs - 1 ) {
+        println ("Current Song is the last song, ", "Number: " + currentSong);
+        currentSong = numberofSongs - numberofSongs;
+        println ("Current Song is now the first song, ", "Number: " + currentSong); 
+      } else {
+        currentSong += 1; // Equivalent code: currentSong = currentSong + 1
+        println ("Current Song after the next or back button, but not the last song", "\tNumber: "+currentSong);
+      }
+      song[currentSong].play();
+    } else {
+      song[currentSong].rewind();
+      if ( currentSong == numberofSongs - 1 ) {
+        println ("Current Song is the last song, ", "Number: " + currentSong); 
+        currentSong = numberofSongs - numberofSongs;
+        println ("Current Song is now the first song or song, ", "Number: " + currentSong);
+      } else {
+        currentSong += 1; 
+        println ("Current Song after the next or back button, but not the last song, ", "Number: " + currentSong); //For Debugging
+      }
+    }
+  }
+  if (key == 'b' || key == 'B') {
+    if (song[currentSong].isPlaying()) {
+      song[currentSong].pause();
+      song[currentSong].rewind();
+      if ( currentSong == numberofSongs - numberofSongs ) {
+        println ("Current Song is the first song, ", "Number: " + currentSong);
+        currentSong = numberofSongs - 1;
+        println ("Current Song is now the last song, ", "Number: " + currentSong);
+      } else {
+        currentSong -= 1;
+        println ("Current Song after the next or back button, but not the first song", "\tNumber: " + currentSong);
+      }
+      song[currentSong].play();
+    } else {
+      song[currentSong].rewind();
+      if ( currentSong == numberofSongs - numberofSongs ) {
+        println ("Current Song is the first song, ", "Number: " + currentSong); 
+        currentSong = numberofSongs - 1;
+        println ("Current Song is now the last song, ", "Number: " + currentSong); 
+      } else {
+        currentSong -= 1; 
+        println ("Current Song after the next or back button, but not the first song, ", "Number: "+currentSong); 
+      }
+    }
+  }
+} 
 
 void mousePressed() { 
-  if (mouseX>playButtonX && mouseX<playButtonX+playButtonWidth && mouseY>playButtonY && mouseY<playButtonY+playButtonHeight) {
+  if (mouseX>playButtonX && mouseX<playButtonX+playButtonWidth && mouseY>playButtonY && mouseY<playButtonY+playButtonHeight) {                                                                                                                 
   if ( song[currentSong].isPlaying() ) {
         song[currentSong].pause() ;
 } else if ( song[currentSong].position() == song[currentSong].length()) {
