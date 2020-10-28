@@ -15,6 +15,8 @@ color black = #030303;
 color blue = #FFF985 ;
 AudioMetaData[] songMetaData = new AudioMetaData[numberofSongs];
 //
+String Soong = "MusicPlayer" ;
+PFont Song ;
 int currentSong=  0 ;
 int loopNum = 1 ;
 float playButtonX, playButtonY, playButtonWidth, playButtonHeight ;
@@ -24,10 +26,12 @@ int forwardButtonX, forwardButtonY, forwardButtonWidth, forwardButtonHeight ;
 int LoopButtonX, LoopButtonY, LoopButtonWidth, LoopButtonHeight ;
 int BackButtonX, BackButtonY, BackButtonWidth, BackButtonHeight ;
 int NextButtonX, NextButtonY, NextButtonWidth, NextButtonHeight ;
+int NameButtonX, NameButtonY, NameButtonWidth, NameButtonHeight ;
 color buttonColour ;
 //
 
 void setup() {
+  Song = createFont ("Harrington", 885);
   background(51);
   size(500, 600) ;
   quitButtonSetup();
@@ -101,10 +105,21 @@ void setup() {
   NextButtonY = height*6/8; 
   NextButtonWidth = width*2/10;
   NextButtonHeight = height*2/20;
-} 
+  NameButtonX = width*1/5 ;
+  NameButtonY = height*3/20 ;
+  NameButtonWidth = width*6/10 ;
+  NameButtonHeight = height*5/20 ;
+}  
 
 void draw() {
   quitButtonDraw();
+  rect(NameButtonX, NameButtonY, NameButtonWidth, NameButtonHeight);
+  fill(purple); //Ink, hexidecimal copied from Color Selector
+  textAlign (CENTER, CENTER); //Align X&Y, see Processing.org / Reference
+  //Values: [LEFT | CENTER | RIGHT] & [TOP | CENTER | BOTTOM | BASELINE]
+  textFont(Song, 30); //Change the number until it fits, largest font size
+  text(Soong, NameButtonX, NameButtonY, NameButtonWidth, NameButtonHeight);
+  fill(255); //Reset to white for rest of the program
   //background(white);
   rect(playButtonX, playButtonY, playButtonWidth, playButtonHeight); 
   {
