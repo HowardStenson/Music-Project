@@ -12,7 +12,7 @@ AudioPlayer[] song = new AudioPlayer[numberofSongs];
 
 color white = #FFFFFF ;
 color black = #030303;
-color blue = #FFF985 ;
+color blue = #FFF985 ; //408 * 406
 AudioMetaData[] songMetaData = new AudioMetaData[numberofSongs];
 //
 String Soong = "MusicPlayer" ;
@@ -42,6 +42,10 @@ int NextButtonX, NextButtonY, NextButtonWidth, NextButtonHeight ;
 int NameButtonX, NameButtonY, NameButtonWidth, NameButtonHeight ;
 color buttonColour ;
 //
+PImage pic ;
+float imageStartWidth, imageStartHeight, imageWidth, imageHeight ;
+float imageWidthRatio ; 
+float imageHeightRatio ;
 
 void setup() {
   Song = createFont ("Harrington", 885);
@@ -54,6 +58,7 @@ void setup() {
   
   background(51);
   size(500, 600) ;
+  //fullScreen();
   quitButtonSetup();
   minim = new Minim(this);
   song[0] = minim.loadFile("Robots_a_Cometh.mp3") ;
@@ -130,6 +135,13 @@ void setup() {
   NameButtonWidth = width*6/10 ;
   NameButtonHeight = height*5/20 ;
   //Values: [LEFT | CENTER | RIGHT] & [TOP | CENTER | BOTTOM | BASELINE]
+  pic = loadImage("image0-4.jpg"); //Dimensions width 408, height 406
+  imageWidthRatio = 204.0/408.0 ;  //51.0/408.0
+  imageHeightRatio = 60.6/408.0;
+  imageStartWidth = width*1.75/7 ;
+  imageStartHeight = height*0 ;
+  imageWidth = width*imageWidthRatio; // Aspect Ratio ;
+  imageHeight = height*imageHeightRatio ;  // Aspect Ratio ;
 }  
 
 void draw() {
@@ -182,6 +194,9 @@ void draw() {
   textFont(Play, 10);
   text(Looop, LoopButtonX, LoopButtonY, LoopButtonWidth, LoopButtonHeight);
   fill(255);
+  //
+  rect(imageStartWidth, imageStartHeight, imageWidth, imageHeight);
+  image(pic, imageStartWidth, imageStartHeight, imageWidth, imageHeight );
   
 }
 
