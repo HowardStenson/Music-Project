@@ -16,7 +16,20 @@ color blue = #FFF985 ;
 AudioMetaData[] songMetaData = new AudioMetaData[numberofSongs];
 //
 String Soong = "MusicPlayer" ;
+String Plaay =  "Play" ;
+String Neext = "Next" ;
+String Baack = "Back" ;
+String Foorward = "Forward" ;
+String Reewind = "Rewind" ;
+String Looop = "Loop" ;
 PFont Song ;
+PFont Play;
+PFont Next ;
+PFont Back ;
+PFont Forward ;
+PFont Rewind ;
+PFont Loop ;
+
 int currentSong=  0 ;
 int loopNum = 1 ;
 float playButtonX, playButtonY, playButtonWidth, playButtonHeight ;
@@ -32,6 +45,13 @@ color buttonColour ;
 
 void setup() {
   Song = createFont ("Harrington", 885);
+  Play = createFont ("Harrington", 885);
+  Next = createFont ("Harrington", 885);
+  Back = createFont ("Harrington", 885);
+  Next = createFont ("Harrington", 885);
+  Forward = createFont ("Harrington", 885);
+  Rewind = createFont ("Harrington", 885);
+  
   background(51);
   size(500, 600) ;
   quitButtonSetup();
@@ -109,68 +129,61 @@ void setup() {
   NameButtonY = height*3/20 ;
   NameButtonWidth = width*6/10 ;
   NameButtonHeight = height*5/20 ;
+  //Values: [LEFT | CENTER | RIGHT] & [TOP | CENTER | BOTTOM | BASELINE]
 }  
 
 void draw() {
   quitButtonDraw();
   rect(NameButtonX, NameButtonY, NameButtonWidth, NameButtonHeight);
-  fill(purple); //Ink, hexidecimal copied from Color Selector
-  textAlign (CENTER, CENTER); //Align X&Y, see Processing.org / Reference
-  //Values: [LEFT | CENTER | RIGHT] & [TOP | CENTER | BOTTOM | BASELINE]
-  textFont(Song, 30); //Change the number until it fits, largest font size
+  fill(purple);
+  textAlign (CENTER, CENTER);
+  textFont(Song, 30);
   text(Soong, NameButtonX, NameButtonY, NameButtonWidth, NameButtonHeight);
-  fill(255); //Reset to white for rest of the program
-  //background(white);
-  rect(playButtonX, playButtonY, playButtonWidth, playButtonHeight); 
-  {
-    if (mouseX>playButtonX && mouseX<playButtonWidth && mouseY>playButtonY && mouseY<playButtonHeight) {
-      buttonColour  = blue;
-    } else {
-      buttonColour = black;
-    }
-  }
-  rect(forwardButtonX, forwardButtonY, forwardButtonWidth, forwardButtonHeight);
-  {
-    if (mouseX>forwardButtonX && mouseX<forwardButtonWidth && mouseY>forwardButtonY && mouseY<forwardButtonHeight) { 
-      buttonColour = blue;
-    } else {
-      buttonColour = black;
-    }
-  }
-  rect(rewindButtonX, rewindButtonY, rewindButtonWidth, rewindButtonHeight); 
-  {
-    if (mouseX>rewindButtonX && mouseX<rewindButtonWidth && mouseY>rewindButtonY && mouseY<rewindButtonHeight) { 
-      buttonColour = blue;
-    } else {
-      buttonColour = black;
-    }
-  }
-  rect(LoopButtonX, LoopButtonY, LoopButtonWidth, LoopButtonHeight) ; 
-  {
-    if (mouseX>LoopButtonX && mouseX<LoopButtonWidth && mouseY>LoopButtonY && mouseY<LoopButtonHeight) { 
-      buttonColour = blue;
-    } else {
-      buttonColour = black;
-    }
-  }
-  rect(BackButtonX, BackButtonY, BackButtonWidth, BackButtonHeight) ; 
-  {
-    if (mouseX>BackButtonX && mouseX<BackButtonWidth && mouseY>BackButtonY && mouseY<BackButtonHeight) {
-      buttonColour = blue;
-    } else {
-      buttonColour = black;
-    }
-  }
-  rect(NextButtonX, NextButtonY, NextButtonWidth, NextButtonHeight) ; 
-  {
-    if (mouseX>NextButtonX && mouseX<NextButtonWidth && mouseY>NextButtonY && mouseY<NextButtonHeight) { 
-      buttonColour = blue;
-    } else {
-      buttonColour = black;
-    }
-  }
+  fill(255);
+  //
+  rect(playButtonX, playButtonY, playButtonWidth, playButtonHeight);
+  fill(purple);
+  textAlign (CENTER, CENTER);
+  textFont(Play, 30);
+  text(Plaay, playButtonX, playButtonY, playButtonWidth, playButtonHeight);
+  fill(255);
+  //
+  rect(BackButtonX, BackButtonY, BackButtonWidth, BackButtonHeight);
+  fill(purple);
+  textAlign (CENTER, CENTER);
+  textFont(Back, 30);
+  text(Baack, BackButtonX, BackButtonY, BackButtonWidth, BackButtonHeight);
+  fill(255);
+  //
+  rect(NextButtonX, NextButtonY, NextButtonWidth, NextButtonHeight);
+  fill(purple);
+  textAlign (CENTER, CENTER);
+  textFont(Next, 30);
+  text(Neext, NextButtonX, NextButtonY, NextButtonWidth, NextButtonHeight);
+  fill(255);
+  //
+   rect(forwardButtonX, forwardButtonY, forwardButtonWidth, forwardButtonHeight);
+  fill(purple);
+  textAlign (CENTER, CENTER);
+  textFont(Forward, 25);
+  text(Foorward, forwardButtonX, forwardButtonY, forwardButtonWidth, forwardButtonHeight);
+  fill(255);
+  //
+  rect(rewindButtonX, rewindButtonY, rewindButtonWidth, rewindButtonHeight);
+  fill(purple);
+  textAlign (CENTER, CENTER);
+  textFont(Rewind, 25);
+  text(Reewind, rewindButtonX, rewindButtonY, rewindButtonWidth, rewindButtonHeight);
+  fill(255);
+  //
+    rect(LoopButtonX, LoopButtonY, LoopButtonWidth, LoopButtonHeight);
+  fill(purple);
+  textAlign (CENTER, CENTER);
+  textFont(Play, 10);
+  text(Looop, LoopButtonX, LoopButtonY, LoopButtonWidth, LoopButtonHeight);
+  fill(255);
+  
 }
-
 
 void keyPressed() {
   if (key == 'p' || key == 'P') {
